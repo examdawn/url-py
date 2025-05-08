@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JupyterLite Code Embedder</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        textarea { width: 100%; height: 100px; font-family: monospace; }
+        button { margin-top: 10px; }
+        #iframe-container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>JupyterLite Code Embedder</h2>
+    <p>Enter your Python code below:</p>
+    <textarea id="code-input">print("Hello World")</textarea><br>
+
+    <label>Width: <input type="number" id="width-input" value="100" style="width:60px;">%</label>
+    <label>Height: <input type="number" id="height-input" value="100" style="width:60px;">%</label><br>
+
+    <button onclick="generateIframe()">Generate Embed Code</button>
+    <button onclick="copyEmbedCode()">Copy Embed Code</button>
+
+    <div id="iframe-container"></div>
+    
+    <script>
+        function encodeCode(code) {
+            return encodeURIComponent(code.replace(/\n/g, "%0A"));
+        }
+
+        function generateIframe() {
+            let code = document.getElementById("code-input").value;
+            let width = document.getElementById("width-input").value;
+            let height = document.getElementById("height-input").value;
+            let encodedCode = encodeCode(code);
+            let iframeSrc = `https://jupyterlite.github.io/demo/repl/index.html?kernel=python&code=${encodedCode}&execute=1`;
+            
+            document.getElementById("iframe-container").innerHTML = `
+                <p>Embed Code:</p>
+                <textarea id="embed-code" readonly>
+                <iframe src="${iframeSrc}" width="${width}%" height="${height}%"></iframe>
+                </textarea>
+                <iframe src="${iframeSrc}" width="${width}%" height="${height}%"></iframe>
+            `;
+        }
+
+        function copyEmbedCode() {
+            let embedCode = document.getElementById("embed-code");
+            embedCode.select();
+            document.execCommand("copy");
+            alert("Embed code copied!");
+        }
+    </script>
+
+</body>
+</html>
