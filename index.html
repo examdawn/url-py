@@ -15,7 +15,7 @@
 
     <h2>JupyterLite Code Embedder</h2>
     <p>Enter your Python code below:</p>
-    <textarea id="code-input">print("Hello World")</textarea><br>
+    <textarea id="code-input" onkeydown="handleTabs(event)">print("Hello World")</textarea><br>
 
     <label>Width: <input type="number" id="width-input" value="100" style="width:60px;">%</label>
     <label>Height: <input type="number" id="height-input" value="100" style="width:60px;">%</label><br>
@@ -27,7 +27,7 @@
     
     <script>
         function encodeCode(code) {
-            return encodeURIComponent(code.replace(/\n/g, "%0A"));
+            return encodeURIComponent(code);
         }
 
         function generateIframe() {
@@ -51,6 +51,20 @@
             embedCode.select();
             document.execCommand("copy");
             alert("Embed code copied!");
+        }
+
+        function handleTabs(event) {
+            if (event.key === "Tab") {
+                event.preventDefault();
+                let textarea = event.target;
+                let start = textarea.selectionStart;
+                let end = textarea.selectionEnd;
+                
+                // Insert four spaces for a tab
+                let value = textarea.value;
+                textarea.value = value.substring(0, start) + "    " + value.substring(end);
+                textarea.selectionStart = textarea.selectionEnd = start + 4;
+            }
         }
     </script>
 
