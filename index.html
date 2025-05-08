@@ -38,13 +38,12 @@
             let iframeSrc = `https://jupyterlite.github.io/demo/repl/index.html?kernel=python&code=${encodedCode}&execute=1`;
             
             document.getElementById("iframe-container").innerHTML = `
-                <p>Embed Code:</p>
-                <textarea id="embed-code" readonly>
-                <a href="${iframeSrc}" target="_blank">Open in New Tab</a>
-                <iframe src="${iframeSrc}" width="${width}%" height="${height}%"></iframe>
-                </textarea>
-                <iframe src="${iframeSrc}" width="${width}%" height="${height}%"></iframe>
-            `;
+<p>Embed Code:</p>
+<textarea id="embed-code" readonly>
+<a href="${iframeSrc}" target="_blank">Open in New Tab</a>
+<iframe src="${iframeSrc}" width="${width}%" height="${height}%"></iframe>
+</textarea>
+<iframe src="${iframeSrc}" width="${width}%" height="${height}%"></iframe>`;
         }
 
         function copyEmbedCode() {
